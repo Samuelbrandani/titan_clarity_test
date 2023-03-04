@@ -1,4 +1,5 @@
 import '../../../domain_layer/domain_layer.dart';
+import '../../../infra/infra.dart';
 import '../../data_layer.dart';
 
 class PhotoRepository implements PhotoRepositoryInterface {
@@ -9,5 +10,7 @@ class PhotoRepository implements PhotoRepositoryInterface {
   }) : _routesDataSource = routesDataSource;
 
   @override
-  Future<void> photos() async {}
+  Future<Result<Photo>> photos() async {
+    return _routesDataSource.photos();
+  }
 }

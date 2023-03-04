@@ -1,3 +1,4 @@
+import '../../../../domain_layer/domain_layer.dart';
 import '../../../../infra/infra.dart';
 
 class PhotoDataSource {
@@ -5,5 +6,7 @@ class PhotoDataSource {
 
   PhotoDataSource({required Http http}) : _http = http;
 
-  Future<void> setRouteStatus() async {}
+  Future<Result<Photo>> photos() async {
+    return _http.get('/photos').result((json) => Photo.fromJson(json));
+  }
 }

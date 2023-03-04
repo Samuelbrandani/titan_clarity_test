@@ -1,3 +1,6 @@
+import '../../../infra/infra.dart';
+import '../../domain_layer.dart';
+
 abstract class PhotoRepositoryInterface {
-  Future<void> photos();
+  Future<Result<Photo>> photos();
 }
