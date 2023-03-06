@@ -47,7 +47,6 @@ class _FavoritePhotosPageState extends State<FavoritePhotosPage> {
             padding: const EdgeInsets.only(top: 20),
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: const BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(6.0)),
             ),
             child: Column(
