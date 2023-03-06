@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
-
-import '../../infra.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class BaseHttp extends DioForNative {
   BaseHttp() {
@@ -21,7 +20,7 @@ class Http extends BaseHttp {
   @override
   BaseOptions get options {
     return BaseOptions(
-      baseUrl: FlavorConfig.instance.values['BASES_URL'],
+      baseUrl: dotenv.env['BASES_URL'] ?? '',
     );
   }
 }

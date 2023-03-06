@@ -4,7 +4,6 @@ abstract class Failure {
   Failure._();
 
   factory Failure.dioFailure(DioError error) = DioFailure;
-  factory Failure.dataFailure(dynamic error) = DataFailure;
   factory Failure.unknownFailure(TypeError error) = UnknownFailure;
 
   String get code;
@@ -27,21 +26,6 @@ class DioFailure extends Failure {
 
   @override
   dynamic get response => error.response;
-}
-
-class DataFailure extends Failure {
-  DataFailure(this.error) : super._();
-
-  final dynamic error;
-
-  @override
-  String get code => error.code;
-
-  @override
-  String get message => 'default_error_message';
-
-  @override
-  dynamic get response => error.description;
 }
 
 class UnknownFailure extends Failure {

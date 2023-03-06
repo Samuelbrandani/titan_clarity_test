@@ -18,4 +18,18 @@ extension FutureExtension on Future<Response> {
       return Result.error(Failure.unknownFailure(e));
     }
   }
+
+  Future<Result<R>> resultList<R>(
+    R Function(List<dynamic> json) onValue,
+  ) async {
+    try {
+      var response = await this;
+      List<dynamic> encodedData = response.data;
+      return Result.success(onValue(encodedData));
+    } on DioError catch (e) {
+      return Result.error(Failure.dioFailure(e));
+    } on TypeError catch (e) {
+      return Result.error(Failure.unknownFailure(e));
+    }
+  }
 }

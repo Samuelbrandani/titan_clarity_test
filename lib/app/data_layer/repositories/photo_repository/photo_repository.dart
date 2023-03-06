@@ -3,14 +3,14 @@ import '../../../infra/infra.dart';
 import '../../data_layer.dart';
 
 class PhotoRepository implements PhotoRepositoryInterface {
-  final PhotoDataSource _routesDataSource;
+  final PhotoDataSource _dataSource;
 
   PhotoRepository({
-    required PhotoDataSource routesDataSource,
-  }) : _routesDataSource = routesDataSource;
+    required PhotoDataSource dataSource,
+  }) : _dataSource = dataSource;
 
   @override
-  Future<Result<Photo>> photos() async {
-    return _routesDataSource.photos();
+  Future<Result<List<Photo>>> photos(Pagination pagination) async {
+    return _dataSource.photos(pagination);
   }
 }

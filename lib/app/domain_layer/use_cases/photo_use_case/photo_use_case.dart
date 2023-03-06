@@ -8,7 +8,7 @@ class PhotoUseCase {
     required PhotoRepositoryInterface repository,
   }) : _repository = repository;
 
-  Future<Result<Photo>> call() async {
-    return _repository.photos();
+  Future<Result<List<Photo>>> call(Pagination pagination) async {
+    return _repository.photos(pagination);
   }
 }

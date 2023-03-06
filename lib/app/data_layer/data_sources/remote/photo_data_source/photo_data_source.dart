@@ -6,7 +6,11 @@ class PhotoDataSource {
 
   PhotoDataSource({required Http http}) : _http = http;
 
-  Future<Result<Photo>> photos() async {
-    return _http.get('/photos').result((json) => Photo.fromJson(json));
+  Future<Result<List<Photo>>> photos(Pagination pagination) async {
+    return _http
+        .get('/photos?_page=${pagination.offset}&_limit=${pagination.limit}')
+        .resultList((json) {
+      return json.map((e) => Photo.fromJson(e)).toList();
+    });
   }
 }
