@@ -3,7 +3,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../data_layer/data_layer.dart';
 import '../../../domain_layer/domain_layer.dart';
 import 'cubit/photos_cubit.dart';
-import 'photos_page.dart';
+import 'favorite_photos/favorite_photos_page.dart';
+import 'photo_page/photos_page.dart';
 
 class PhotosModule extends Module {
   @override
@@ -19,6 +20,10 @@ class PhotosModule extends Module {
     ChildRoute(
       Modular.initialRoute,
       child: (context, args) => const PhotosPage(),
+    ),
+    ChildRoute(
+      '/favorite_photos',
+      child: (context, args) => FavoritePhotosPage(listPhotos: args.data),
     ),
   ];
 }

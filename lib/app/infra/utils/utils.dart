@@ -1,3 +1,4 @@
+export './components/custom_image_loadable.dart';
 export './components/photo_component.dart';
 export './models/pagination.dart';
 export './response/failure.dart';

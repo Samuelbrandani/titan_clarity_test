@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../domain_layer/domain_layer.dart';
-import '../../../infra/infra.dart';
-import 'cubit/photos_cubit.dart';
-import 'cubit/photos_state.dart';
+import '../../../../infra/infra.dart';
+import '../cubit/photos_cubit.dart';
+import '../cubit/photos_state.dart';
 
 class PhotosPage extends StatefulWidget {
   const PhotosPage({super.key});
@@ -17,7 +16,6 @@ class PhotosPage extends StatefulWidget {
 class _PhotosPageState extends State<PhotosPage> {
   late PhotosCubit _cubit;
   late ScrollController _scrollController;
-  List<int> selectedPhotosIds = [];
 
   @override
   void initState() {
@@ -35,22 +33,6 @@ class _PhotosPageState extends State<PhotosPage> {
     }
   }
 
-  void selectPhoto(Photo photo) {
-    if (selectedPhotosIds.contains(photo.id)) {
-      var newList = selectedPhotosIds
-        ..removeWhere(
-          (element) => element == photo.id,
-        );
-      setState(() {
-        selectedPhotosIds = newList;
-      });
-    } else {
-      setState(() {
-        selectedPhotosIds = [...selectedPhotosIds, photo.id];
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext _) {
     return BlocBuilder<PhotosCubit, PhotosState>(
@@ -58,18 +40,21 @@ class _PhotosPageState extends State<PhotosPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('${selectedPhotosIds.length} photos selected'),
-            actions: selectedPhotosIds.isNotEmpty
+            title: Text('${state.selectedPhotos.length} photos selected'),
+            actions: state.selectedPhotos.isNotEmpty
                 ? [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed(
+                          'favorite_photos',
+                          arguments: state.selectedPhotos,
+                        );
+                      },
                       icon: const Icon(Icons.favorite),
                     ),
                     IconButton(
                       onPressed: () {
-                        setState(() {
-                          selectedPhotosIds = [];
-                        });
+                        _cubit.clearSelectedPhotos();
                       },
                       icon: const Icon(Icons.close),
                     ),
@@ -84,9 +69,10 @@ class _PhotosPageState extends State<PhotosPage> {
               var photo = state.photos[index];
               return PhotoComponent(
                 photo: photo,
-                isSelected: selectedPhotosIds.contains(photo.id),
+                isSelected: state.selectedPhotos.contains(photo),
                 onPressed: () {
-                  selectPhoto(photo);
+                  _cubit.selectPhoto(photo);
+                  setState(() {});
                 },
               );
             },

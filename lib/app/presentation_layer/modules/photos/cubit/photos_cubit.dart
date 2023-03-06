@@ -35,4 +35,21 @@ class PhotosCubit extends Cubit<PhotosState> {
       },
     );
   }
+
+  void selectPhoto(Photo photo) {
+    if (state.selectedPhotos.contains(photo)) {
+      var newList = state.selectedPhotos
+        ..removeWhere(
+          (element) => element == photo,
+        );
+
+      emit(state.copyWith(selectedPhotos: newList));
+    } else {
+      emit(state.copyWith(selectedPhotos: [...state.selectedPhotos, photo]));
+    }
+  }
+
+  void clearSelectedPhotos() {
+    emit(state.copyWith(selectedPhotos: []));
+  }
 }

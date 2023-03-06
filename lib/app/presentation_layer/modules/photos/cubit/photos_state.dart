@@ -7,22 +7,26 @@ class PhotosState extends Equatable {
   final bool isLoading;
   final Failure? error;
   final List<Photo> photos;
+  final List<Photo> selectedPhotos;
 
   const PhotosState({
     this.isLoading = false,
     this.error,
     this.photos = const [],
+    this.selectedPhotos = const [],
   });
 
   PhotosState copyWith({
     bool? isLoading,
     Failure? error,
     List<Photo>? photos,
+    List<Photo>? selectedPhotos,
   }) {
     return PhotosState(
       isLoading: isLoading ?? this.isLoading,
       error: error,
       photos: photos ?? this.photos,
+      selectedPhotos: selectedPhotos ?? this.selectedPhotos,
     );
   }
 
@@ -31,5 +35,6 @@ class PhotosState extends Equatable {
         isLoading,
         error,
         photos,
+        selectedPhotos,
       ];
 }

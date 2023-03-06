@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain_layer/domain_layer.dart';
+import '../../infra.dart';
 
 class PhotoComponent extends StatelessWidget {
   const PhotoComponent({
@@ -19,14 +20,10 @@ class PhotoComponent extends StatelessWidget {
       child: ListTile(
         onTap: onPressed,
         title: Text(photo.title),
-        leading: ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: 44,
-            minHeight: 44,
-            maxWidth: 64,
-            maxHeight: 64,
-          ),
-          child: Image.network(photo.thumbnailUrl, fit: BoxFit.cover),
+        leading: CustomImageLoadable(
+          imageUrl: photo.thumbnailUrl,
+          width: 60,
+          height: 60,
         ),
       ),
     );
